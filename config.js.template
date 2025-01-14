@@ -1,0 +1,235 @@
+/* Config Sample
+ *
+ * For more information on how you can configure this file
+ * see https://docs.magicmirror.builders/configuration/introduction.html
+ * and https://docs.magicmirror.builders/modules/configuration.html
+ *
+ * You can use environment variables using a `config.js.template` file instead of `config.js`
+ * which will be converted to `config.js` while starting. For more information
+ * see https://docs.magicmirror.builders/configuration/introduction.html#enviromnent-variables
+ */
+
+// Icons
+// https://fontawesome.com/v6/search?o=r&m=free
+
+let config = {
+	address: "localhost",		// Address to listen on, can be:
+								// - "localhost", "127.0.0.1", "::1" to listen on loopback interface
+								// - another specific IPv4/6 to listen on a specific interface
+								// - "0.0.0.0", "::" to listen on any interface
+								// Default, when address config is left out or empty, is "localhost"
+	port: 8080,
+	basePath: "/",				// The URL path where MagicMirror² is hosted. If you are using a Reverse proxy
+								// you must set the sub path here. basePath must end with a /
+	ipWhitelist: ["127.0.0.1", "::ffff:127.0.0.1", "::1"],	// Set [] to allow all IP addresses
+								// or add a specific IPv4 of 192.168.1.5 :
+								// ["127.0.0.1", "::ffff:127.0.0.1", "::1", "::ffff:192.168.1.5"],
+								// or IPv4 range of 192.168.3.0 --> 192.168.3.15 use CIDR format :
+								// ["127.0.0.1", "::ffff:127.0.0.1", "::1", "::ffff:192.168.3.0/28"],
+
+	useHttps: false,			// Support HTTPS or not, default "false" will use HTTP
+	httpsPrivateKey: "",		// HTTPS private key path, only require when useHttps is true
+	httpsCertificate: "",		// HTTPS Certificate path, only require when useHttps is true
+
+	language: "en",
+	locale: "en-US",   			// this variable is provided as a consistent location
+			   					// it is currently only used by 3rd party modules. no MagicMirror code uses this value
+								// as we have no usage, we  have no constraints on what this field holds
+								// see https://en.wikipedia.org/wiki/Locale_(computer_software) for the possibilities
+
+	// logLevel: ["INFO", "LOG", "WARN", "ERROR"], // Add "DEBUG" for even more logging
+	logLevel: ["LOG", "WARN", "ERROR"],
+	timeFormat: 12,
+	units: "imperial",
+
+	modules: [
+		// Alerts/Notifications \\
+		{
+			module: "alert",
+		},
+		{
+			module: "updatenotification",
+			position: "top_bar",
+		},
+
+		// Clock \\
+		{
+			module: "clock",
+			position: "middle_center",
+			config: {
+				showPeriod: false,
+				lat: "${LATITUDE}",
+				lon: "${LONGITUDE}",
+				dateFormat: "dddd, LL",
+			}
+		},
+
+		// Planetarium \\
+		{
+			module: 'MMM-Planetarium',
+			position: 'fullscreen_below', 
+			config: {
+				latitude: "${LATITUDE}",
+				longitude: "${LONGITUDE}",
+				az: 0, 				// Azimuth : 0 means North, 90 means East, 180 means South, ...
+				panoffset: -0.01, 	// Panning step by AZ
+				paninterval: 10, 	// Milliseconds. 0 => no pan.
+
+				// https://slowe.github.io/VirtualSky/#options
+				projection: 'stereo',
+				keyboard: false,
+				constellations: true,
+				constellationlabels: false,
+				constellationwidth: 0.1,
+				showplanets: true,
+				showplanetlabels: true,
+				showstarlabels: false,
+				showdate: false,
+				showposition: false,
+				showgalaxy: false,
+				live: true,
+				meridian: false,
+				gridlines_gal: false,
+				showstartlabels: false,
+				ground: true,
+				transparent: true,
+				cardinalpoints: true,
+				mouse: false,
+				meteorshowers: true,
+			}
+		},
+
+		// Calendar \\
+		{
+			module: "calendar",
+			header: "This Week",
+			position: "top_left",
+			config: {
+				broadcastPastEvents: true,
+				broadcastEvents: true,
+				calendars: [
+					{
+						url: "https://calendar.google.com/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics",
+						symbol: "calendar-check",
+						fetchInterval: 7 * 24 * 60 * 60 * 1000,
+						name: "us_holiday",
+						color: "gray"
+					},
+					{
+						url: "${CAL1}",
+						symbol: "${CAL1ICON}",
+						name: "${CAL1NAME}",
+						color: "#${CAL1COLOR}",
+					},
+					{
+						url: "${CAL2}",
+						symbol: "${CAL2ICON}",
+						name: "${CAL2NAME}",
+						color: "#${CAL2COLOR}",
+					},
+					{
+						url: "${CAL3}",
+						symbol: "${CAL3ICON}",
+						name: "${CAL3NAME}",
+						color: "#${CAL3COLOR}",
+					},
+					{
+						url: "${CAL4}",
+						symbol: "${CAL4ICON}",
+						name: "${CAL4NAME}",
+						color: "#${CAL4COLOR}",
+					},
+				],
+				maximumEntries: 10, // the max number of calendar events
+				fadePoint: 0.1, // What percentage before starting to fade
+				displaySymbol: true, // displays the symbol for each event
+				showLocation: true, // shows the location of events
+				wrapEvents: true, // wraps events onto new lines
+				displayRepeatingCountTitle: true, // age in birthday
+				dateFormat: "MMM Do @ HH:mm", // Date format (and time)
+				coloredText: true, // whether the text is colored
+				coloredSymbol: true, // whether the symbols are colored
+				maximumNumberOfDays: 7, // how many days into the future
+			},
+		},
+
+		{
+			module: "MMM-CalendarExt3Timeline",
+			position: "bottom_center",
+			config: {
+				locale: 'en-US',
+				staticMode: false,
+				beginHour: -3,
+				hourLength: 9,
+				useSymbol: true,
+				displayLegend: false,
+				animationSpeed: 100,
+				calendarSet: ["${CAL1NAME}", "${CAL2NAME}", "#{CAL3NAME}", "${CAL4NAME}"],
+				dateIndexOptions: {weekday: 'short'}
+			}
+		},
+
+		// Weather \\
+		{
+			module: "weather",
+			position: "top_right",
+			config: {
+				weatherProvider: "openmeteo",
+				type: "current",
+				lat: "${LATITUDE}",
+				lon: "${LONGITUDE}",
+				showPrecipitationAmount: true,
+				showPrecipitationProbability: true,
+				showWindDirectionAsArrow: true,
+				showIndoorTemperature: true,
+				showIndoorHumidity: true,
+			}
+		},
+
+		{
+			module: "weather",
+			position: "top_right",
+			header: "Forecast",
+			config: {
+				weatherProvider: "openmeteo",
+				type: "forecast",
+				lat: "${LATITUDE}",
+				lon: "${LONGITUDE}",
+
+				maxNumberOfDays: 7,
+				fadePoint: 0.1,
+			}
+		},
+
+		// Internet Connectivity \\
+		{
+			module: "MMM-ServerStatus",
+			header: "",
+			position: "bottom_right",
+			config: {
+				hosts: [
+					{ name: " ", ip: "8.8.8.8" }, // Test internet connection to google dns
+				],
+				pingInterval: 60,
+				upSymbol: "wifi",
+				downSymbol: "xmark",
+				upText: "",
+				downText: "",
+				upColor: "green",
+				downColor: "red",
+			},
+		},
+
+		// System Temperature 
+		{
+			module: 'mmm-systemtemperature',
+			position: 'bottom_left',
+			config: {
+				prependString: "",
+			}
+		},
+	]
+};
+
+/*************** DO NOT EDIT THE LINE BELOW ***************/
+if (typeof module !== "undefined") { module.exports = config; }
