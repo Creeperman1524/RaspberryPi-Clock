@@ -4,8 +4,8 @@
 bash -c  "$(curl -sL https://raw.githubusercontent.com/sdetweil/MagicMirror_scripts/master/raspberry.sh)"
 pm2 stop MagicMirror
 
-# Edit start file (disabling the auto restart with changes in the config, due to templates being used)
-sed -i '6d' ~/MagicMirror/installers/pm2_MagicMirror_new.json
+# Edit start file
+sed -i 's/config.js/config.js.template' ~/MagicMirror/installers/pm2_MagicMirror_new.json # watches the template file instead
 pm2 start ~/MagicMirror/installers/pm2_MagicMirror_new.json
 pm2 save
 pm2 stop MagicMirror
@@ -19,11 +19,11 @@ echo "Installation complete! Linking custom configuration..."
 rm ~/MagicMirror/config/config.js
 rm ~/MagicMirror/config/config.js.template
 rm ~/MagicMirror/css/custom.css
-rm ~/MagicMirror/config.env
+rm ~/MagicMirror/config/config.env
 
-ln -s ~/Raspberry-Pi-Clock/config.js.template ~/MagicMirror/config/config.js.template
-ln -s ~/Raspberry-Pi-Clock/config.env ~/MagicMirror/config/config.env
-ln -s ~/Raspberry-Pi-Clock/custom.css ~/MagicMirror/css/custom.css
+ln -s ~/RaspberryPi-Clock/config.js.template ~/MagicMirror/config/config.js.template
+ln -s ~/RaspberryPi-Clock/config.env ~/MagicMirror/config/config.env
+ln -s ~/RaspberryPi-Clock/custom.css ~/MagicMirror/css/custom.css
 
 # Modules
 echo "Installing custom modules..."
@@ -32,6 +32,8 @@ cd ~/MagicMirror/modules
 # Planetarium
 echo "Installing Planetarium..."
 git clone https://github.com/MMRIZE/MMM-Planetarium
+
+sed -i "s/Powered by LCO//" ~/MagicMirror/modules/MMM-Planetarium/virtualsky/lang/en.json # Remove watermark (sorry)
 
 # Timeline
 echo "Installing Timeline..."
