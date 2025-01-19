@@ -4,18 +4,33 @@ A location to store and keep track of configuration files for my Raspberry Pi Cl
 
 It also provides a script to easily add all the features for the [MagicMirror<sup>2</sup>](https://magicmirror.builders/) display used for this project.
 
+- [RaspberryPi-Clock](#raspberrypi-clock)
+  - [Hardware](#hardware)
+  - [Software](#software)
+    - [Clock Display](#clock-display)
+      - [Commands](#commands)
+    - [Screen Orientation](#screen-orientation)
+    - [Auto dimming](#auto-dimming)
+  - [Tips and Tricks](#tips-and-tricks)
+    - [View CPU temperature](#view-cpu-temperature)
+    - [Reduce shutdown power consumption](#reduce-shutdown-power-consumption)
+    - [Turn off LED power light](#turn-off-led-power-light)
+- [Credits](#credits)
+
 ## Hardware
 
 Coming soon!
 
 ## Software
 
-### MagicMirror<sup>2</sup>/Clock Display
+### Clock Display
 
-Run `./install.sh` to install MagicMirror<sup>2</sup>, my modules, and configurations. It will:
+Run `./install.sh` to install MagicMirror<sup>2</sup>, my modules, and configurations.
 
 > [!WARNING]
 > This does take a while to run, especially to install all the packages. Be patient and make sure to not power off the Pi!
+
+This script will:
 
 1. Run the install script provided by [this repository](https://github.com/sdetweil/MagicMirror_scripts) to install MagicMirror<sup>2</sup>.
 2. Edit some files created by the installation for more ease of use.
@@ -23,28 +38,28 @@ Run `./install.sh` to install MagicMirror<sup>2</sup>, my modules, and configura
    - That way, any changes made to the repo can instantly be `git pull`'ed and updated.
 4. Install all the modules that I use.
 5. Disable the pi's screensaver.
-6. Enable auto-start for when the pi is restarted/shutdown.
+6. Enable auto-start for when the Pi is restarted/shutdown.
 
 #### Commands
 
-By `ssh`ing into the raspberry pi, you can run these commands and further configure the clock display.
+By `ssh`ing into the Raspberry Pi, you can run these commands and further configure the clock display.
 
 `pm2 start MagicMirror` - Run MagicMirror
 
-`pm2 reload MagicMirror` - Reload MagicMirror (if auto reloads after editing the config is not enabled)
+`pm2 reload MagicMirror` - Reload MagicMirror (if auto reloading after editing the config is not enabled)
 
 `pm2 stop MagicMirror` - Stop MagicMirror
 
-<sub>More commands and documentation can be found [here](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/)</sub>
+<sub>More commands and documentation for `pm2` can be found [here](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/)</sub>
 
 ### Screen Orientation
 
 <sub>Via the [Pi-Kiosk repo](https://github.com/geerlingguy/pi-kiosk?tab=readme-ov-file#rotating-the-screen)</sub>
 
-Running this command will turn the screen 270 (or change to whichever you want) degrees.
+Running this command will turn the screen 90 (or change to whichever you want) degrees.
 
 ```bash
-wlr-randr --output DSI-1 --transform 270
+wlr-randr --output DSI-1 --transform 90
 ```
 
 If you want it to persist, you can do so by changing the `transform` argument in the `~/.config/kanshi/config` file, like so:
@@ -56,6 +71,24 @@ profile {
 ```
 
 It can also be done by manually changing the screen orientation in the rpi's desktop screen configurations. (I found better results doing it this way)
+
+### Auto dimming
+
+Coming soon!
+
+To change the brightness manually (without the use of a sensor), run the command:
+
+```bash
+echo <VALUE> | sudo tee /sys/class/backlight/<monitor>/brightness
+```
+
+Where `VALUE` is an integer between 0 - 31 (with 0 being off and 31 being max brightness)
+
+and `MONITOR` is the display the Raspberry Pi is using (it can most likely be tab completed)
+
+## Tips and Tricks
+
+Some information that isn't completely necessary for the build/project, but still nice to include anyways!
 
 ### View CPU temperature
 
@@ -70,24 +103,26 @@ vcgencmd measure_temp
 Follow the instructions found [here](https://github.com/geerlingguy/pi-kiosk/tree/master?tab=readme-ov-file#reduce-shutdown-power-consumption-by-140x) to reduce
 the pi's power consumption while it is powered off by 140x!.
 
-### Auto dimming
+### Turn off LED power light
 
-Coming soon!
-
-To change the brightness manually (without the use of the sensor), run the command:
+The red light can get annoying in the dark (especially without a case), so there's an easy way to turn it off:
 
 ```bash
-echo <VALUE> | sudo tee /sys/class/backlight/<monitor>/brightness
+echo 0 | sudo tee /sys/class/leds/PWR/brightness
 ```
 
-Where `VALUE` is an integer between 0 - 31 (with 0 being off and 31 being max brightness)
+To not run this command every single time the Raspberry Pi boots up, you can have it do it for you by adding this line to your `/etc/crontab`
 
-and `MONITOR` is the display the raspberry pi is using (it can most likely be tab completed)
+```
+@reboot root echo 0 > /sys/class/leds/PWR/brightness
+```
 
-## Credits
+<sub>Thanks to [this post](https://forums.raspberrypi.com/viewtopic.php?t=252049)</sub>
+
+# Credits
 
 [The Pi Kiosk project](https://github.com/geerlingguy/pi-kiosk)
 
-- Use of many of it's commands and features to setup the raspberry pi
+- Use of many of it's commands and features to setup the Raspberry Pi
 
 More coming soon!
