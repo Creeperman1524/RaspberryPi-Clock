@@ -82,7 +82,7 @@ let config = {
 				constellationlabels: false,
 				constellationwidth: 0.1,
 				showplanets: true,
-				showplanetlabels: true,
+				showplanetlabels: false,
 				showstarlabels: false,
 				showdate: false,
 				showposition: false,
@@ -90,12 +90,12 @@ let config = {
 				live: true,
 				meridian: false,
 				gridlines_gal: false,
-				showstartlabels: false,
+				showstarlabels: false,
 				ground: true,
 				transparent: true,
-				cardinalpoints: true,
+				cardinalpoints: false,
 				mouse: false,
-				meteorshowers: true,
+				meteorshowers: false,
 			}
 		},
 
@@ -140,8 +140,8 @@ let config = {
 						color: "#${CAL4COLOR}",
 					},
 				],
-				maximumEntries: 10, // the max number of calendar events
-				fadePoint: 0.1, // What percentage before starting to fade
+				maximumEntries: 5, // the max number of calendar events
+				fadePoint: 0.25, // What percentage before starting to fade
 				displaySymbol: true, // displays the symbol for each event
 				showLocation: true, // shows the location of events
 				wrapEvents: true, // wraps events onto new lines
@@ -150,6 +150,11 @@ let config = {
 				coloredText: true, // whether the text is colored
 				coloredSymbol: true, // whether the symbols are colored
 				maximumNumberOfDays: 7, // how many days into the future
+				customEvents: [
+					{
+						keyword: '${CUST1KEY}', symbol: '${CUST1SYM}', color: '${CUST1COLOR}'
+					}
+				]
 			},
 		},
 
@@ -160,7 +165,7 @@ let config = {
 				locale: 'en-US',
 				staticMode: false,
 				beginHour: -3,
-				hourLength: 9,
+				hourLength: 15,
 				useSymbol: true,
 				displayLegend: false,
 				animationSpeed: 100,

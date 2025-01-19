@@ -3,6 +3,14 @@
 }
 
 .PLNTRM {
-	width: 100vw !important;
-	height: 100vh !important;
+	width: 105vw !important;
+	height: 105vh !important;
+}
+
+body {
+	zoom: 95%;
+}
+
+.clock .time {
+	font-size: 8rem;
 }
