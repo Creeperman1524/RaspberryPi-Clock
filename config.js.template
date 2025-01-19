@@ -183,9 +183,8 @@ let config = {
 				type: "current",
 				lat: "${LATITUDE}",
 				lon: "${LONGITUDE}",
-				showPrecipitationAmount: true,
-				showPrecipitationProbability: true,
-				showWindDirectionAsArrow: true,
+				showSun: false,
+				showFeelsLike: true,
 				showIndoorTemperature: true,
 				showIndoorHumidity: true,
 			}
@@ -232,6 +231,17 @@ let config = {
 			config: {
 				prependString: "",
 			}
+		},
+
+		// Temperature Monitor
+		{
+			module: "MMM-DHT-Sensor",
+			config: {
+				sensorPin: 24, // GPIO24
+				sensorType: 22, // 11 for DHT11 or 22 for DHT22 / AM2302
+				updateInterval: 5 * 60 * 1000,
+				units: "metric" // Override to send the "INDOOR_TEMPERATURE" notification in C, which is converted by the weather module
+			},
 		},
 	]
 };

@@ -51,5 +51,12 @@ echo "Installing system temperature..."
 git clone https://github.com/MichMich/mmm-systemtemperature.git
 npm install
 
+# Temperature monitor
+echo "Installing temperature monitor..."
+git clone https://github.com/grenagit/MMM-DHT-Sensor
+cd MMM-DHT-Sensor
+npm install
+cd ~/MagicMirror/modules
+
 echo "Make sure to edit the custom env file"
 echo "Use 'pm2 start MagicMirror'"
