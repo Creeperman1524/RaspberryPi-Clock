@@ -147,9 +147,11 @@ let config = {
 				wrapEvents: true, // wraps events onto new lines
 				displayRepeatingCountTitle: true, // age in birthday
 				dateFormat: "MMM Do @ HH:mm", // Date format (and time)
+				timeFormat: "absolute",
 				coloredText: true, // whether the text is colored
 				coloredSymbol: true, // whether the symbols are colored
 				maximumNumberOfDays: 7, // how many days into the future
+				fetchInterval: 10 * 60 * 1000, // how quickly to fetch new events and changes from the calendar
 				customEvents: [
 					{
 						keyword: '${CUST1KEY}', symbol: '${CUST1SYM}', color: '${CUST1COLOR}'
@@ -169,7 +171,7 @@ let config = {
 				useSymbol: true,
 				displayLegend: false,
 				animationSpeed: 100,
-				calendarSet: ["${CAL1NAME}", "${CAL2NAME}", "#{CAL3NAME}", "${CAL4NAME}"],
+				calendarSet: ["${CAL1NAME}", "${CAL2NAME}", "${CAL3NAME}", "${CAL4NAME}"],
 				dateIndexOptions: {weekday: 'short'}
 			}
 		},

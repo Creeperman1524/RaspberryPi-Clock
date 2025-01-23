@@ -5,7 +5,7 @@ bash -c  "$(curl -sL https://raw.githubusercontent.com/sdetweil/MagicMirror_scri
 pm2 stop MagicMirror
 
 # Edit start file
-sed -i 's/config.js/config.js.template' ~/MagicMirror/installers/pm2_MagicMirror_new.json # watches the template file instead
+sed -i 's/config.js/config.js.template/' ~/MagicMirror/installers/pm2_MagicMirror_new.json # watches the template file instead
 pm2 start ~/MagicMirror/installers/pm2_MagicMirror_new.json
 pm2 save
 pm2 stop MagicMirror
@@ -22,6 +22,7 @@ rm ~/MagicMirror/css/custom.css
 rm ~/MagicMirror/config/config.env
 
 ln -s ~/RaspberryPi-Clock/config.js.template ~/MagicMirror/config/config.js.template
+cp ~/RaspberryPi-Clock/config.env.example ~/RaspberryPi-Clock/config.env
 ln -s ~/RaspberryPi-Clock/config.env ~/MagicMirror/config/config.env
 ln -s ~/RaspberryPi-Clock/custom.css ~/MagicMirror/css/custom.css
 
