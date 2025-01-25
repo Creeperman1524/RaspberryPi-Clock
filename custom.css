@@ -12,5 +12,13 @@ body {
 }
 
 .clock .time {
+	transition: font-size 0.25s ease-out;
+}
+
+.clock.big .time {
+	font-size: 16rem;
+}
+
+.clock.small .time {
 	font-size: 8rem;
 }

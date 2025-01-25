@@ -52,6 +52,86 @@ let config = {
 			position: "top_bar",
 		},
 
+		// Scenes
+		{
+			module: "MMM-Scenes2",
+			config: {
+				scenario: [
+					{
+						name: "On_Touch",
+						enter: [
+							{ role: "hiddenLeft", animation: "fadeInLeft", duration: 1 * 1000, gap: 0 },
+							{ role: "hiddenRight", animation: "fadeInRight", duration: 1 * 1000, gap: 0 },
+							{ role: "hiddenDown", animation: "fadeInUp", duration: 1 * 1000, gap: 0 },
+						],
+						exit: [
+							{ role: "hiddenFull", animation: "fadeOut", duration: 1 * 1000, gap: 0 },
+						],
+						life: 15 * 1000,
+						previous: false,
+						next: "Default",
+					},
+					{
+						name: "Automatic",
+						enter: [
+							{ role: "hiddenLeft", animation: "fadeInLeft", duration: 1 * 1000, gap: 0 },
+							{ role: "hiddenRight", animation: "fadeInRight", duration: 1 * 1000, gap: 0 },
+							{ role: "hiddenDown", animation: "fadeInUp", duration: 1 * 1000, gap: 0 },
+						],
+						exit: [
+							{ role: "hiddenFull", animation: "fadeOut", duration: 1 * 1000, gap: 0 },
+						],
+						life: 0,
+						previous: false,
+						next: false,
+					},
+					{
+						name: "Default",
+						enter: [
+							{ role: "hiddenFull", animation: "fadeIn", duration: 1 * 1000, gap: 0 },
+						],
+						exit: [
+							{ role: "hiddenLeft", animation: "fadeOutLeft", duration: 1 * 1000, gap: 0 },
+							{ role: "hiddenRight", animation: "fadeOutRight", duration: 1 * 1000, gap: 0 },
+							{ role: "hiddenDown", animation: "fadeOutDown", duration: 1 * 1000, gap: 0 },
+						],
+						life: 0,
+						previous: "On_Touch",
+						next: false,
+					},
+				],
+			}
+		},
+
+		// Custom touchscreen handler
+		{
+			module: "MMM-TouchHandler",
+		},
+
+		// Automatic scene notifications
+		// DIsplays the full information between 10:30am - 11:30am M-F
+		{
+			module: "MMM-ModuleScheduler",
+			config: {
+				notification_schedule: [
+					{
+						notification: "SCENES_PLAY",
+						schedule: "30 10 * * 1-5",
+						payload: {
+							scene: "Automatic",
+						},
+					},
+					{
+						notification: "SCENES_PLAY",
+						schedule: "30 11 * * 1-5",
+						payload: {
+							scene: "Default",
+						},
+					}
+				]
+			}
+		},
+
 		// Clock \\
 		{
 			module: "clock",
@@ -61,6 +141,7 @@ let config = {
 				lat: "${LATITUDE}",
 				lon: "${LONGITUDE}",
 				dateFormat: "dddd, LL",
+				clockBold: true,
 			}
 		},
 
@@ -68,6 +149,8 @@ let config = {
 		{
 			module: 'MMM-Planetarium',
 			position: 'fullscreen_below', 
+			classes: "hiddenFull",
+			hiddenOnStart: true,
 			config: {
 				latitude: "${LATITUDE}",
 				longitude: "${LONGITUDE}",
@@ -104,6 +187,8 @@ let config = {
 			module: "calendar",
 			header: "This Week",
 			position: "top_left",
+			hiddenOnStart: true,
+			classes: "hiddenLeft",
 			config: {
 				broadcastPastEvents: true,
 				broadcastEvents: true,
@@ -163,6 +248,8 @@ let config = {
 		{
 			module: "MMM-CalendarExt3Timeline",
 			position: "bottom_center",
+			hiddenOnStart: true,
+			classes: "hiddenDown",
 			config: {
 				locale: 'en-US',
 				staticMode: false,
@@ -180,6 +267,8 @@ let config = {
 		{
 			module: "weather",
 			position: "top_right",
+			hiddenOnStart: true,
+			classes: "hiddenRight",
 			config: {
 				weatherProvider: "openmeteo",
 				type: "current",
@@ -196,6 +285,8 @@ let config = {
 			module: "weather",
 			position: "top_right",
 			header: "Forecast",
+			hiddenOnStart: true,
+			classes: "hiddenRight",
 			config: {
 				weatherProvider: "openmeteo",
 				type: "forecast",
@@ -230,6 +321,8 @@ let config = {
 		{
 			module: 'mmm-systemtemperature',
 			position: 'bottom_left',
+			hiddenOnStart: true,
+			classes: "hiddenDown",
 			config: {
 				prependString: "",
 			}

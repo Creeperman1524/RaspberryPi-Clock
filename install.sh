@@ -32,31 +32,49 @@ cd ~/MagicMirror/modules
 
 # Planetarium
 echo "Installing Planetarium..."
-git clone https://github.com/MMRIZE/MMM-Planetarium
-
+git clone https://github.com/MMRIZE/MMM-Planetarium &> /dev/null
 sed -i "s/Powered by LCO//" ~/MagicMirror/modules/MMM-Planetarium/virtualsky/lang/en.json # Remove watermark (sorry)
 
 # Timeline
 echo "Installing Timeline..."
-git clone https://github.com/MMRIZE/MMM-CalendarExt3Timeline
+git clone https://github.com/MMRIZE/MMM-CalendarExt3Timeline &> /dev/null
 
 # Server Status
 echo "Installing Server Status..."
-git clone https://github.com/XBCreepinJesus/MMM-ServerStatus.git
+git clone https://github.com/XBCreepinJesus/MMM-ServerStatus.git &> /dev/null
 cd MMM-ServerStatus/
 npm install
 cd ~/MagicMirror/modules
 
 # System temperature
 echo "Installing system temperature..."
-git clone https://github.com/MichMich/mmm-systemtemperature.git
+git clone https://github.com/MichMich/mmm-systemtemperature.git &> /dev/null
 npm install
 
 # Temperature monitor
 echo "Installing temperature monitor..."
-git clone https://github.com/grenagit/MMM-DHT-Sensor
+git clone https://github.com/grenagit/MMM-DHT-Sensor &> /dev/null
 cd MMM-DHT-Sensor
 npm install
+cd ~/MagicMirror/modules
+
+# Scenes
+echo "Installing scenes..."
+git clone https://github.com/MMRIZE/MMM-Scenes2 &> /dev/null
+cd MMM-Scenes2
+npm install
+cd ~/MagicMirror/modules
+
+# Create folder for my custom module
+echo "Installing custom touch handler..."
+mkdir MMM-TouchHandler
+ln -s ~/RaspberryPi-Clock/MMM-TouchHandler.js ~/MagicMirror/modules/MMM-TouchHandler/MMM-TouchHandler.js
+
+# Notification Scheduler
+echo "Installing notification scheduler..."
+git clone https://github.com/ianperrin/MMM-ModuleScheduler.git &> /dev/null
+cd MMM-ModuleScheduler
+npm install --production
 cd ~/MagicMirror/modules
 
 echo "Make sure to edit the custom env file"
