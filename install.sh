@@ -10,7 +10,7 @@ pm2 start ~/MagicMirror/installers/pm2_MagicMirror_new.json
 pm2 save
 pm2 stop MagicMirror
 
-# Turn off screensaver 
+# Turn off screensaver
 echo "Disabling screensaver... (backup)"
 bash -c "$(curl -sL https://raw.githubusercontent.com/sdetweil/MagicMirror_scripts/master/screensaveroff.sh)"
 
@@ -29,11 +29,6 @@ ln -s ~/RaspberryPi-Clock/custom.css ~/MagicMirror/css/custom.css
 # Modules
 echo "Installing custom modules..."
 cd ~/MagicMirror/modules
-
-# Planetarium
-echo "Installing Planetarium..."
-git clone https://github.com/MMRIZE/MMM-Planetarium &> /dev/null
-sed -i "s/Powered by LCO//" ~/MagicMirror/modules/MMM-Planetarium/virtualsky/lang/en.json # Remove watermark (sorry)
 
 # Timeline
 echo "Installing Timeline..."

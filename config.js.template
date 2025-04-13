@@ -109,7 +109,7 @@ let config = {
 		},
 
 		// Automatic scene notifications
-		// DIsplays the full information between 10:30am - 11:30am M-F
+		// Displays the full information between 10:30am - 11:30am M-F
 		{
 			module: "MMM-ModuleScheduler",
 			config: {
@@ -142,43 +142,6 @@ let config = {
 				lon: "${LONGITUDE}",
 				dateFormat: "dddd, LL",
 				clockBold: true,
-			}
-		},
-
-		// Planetarium \\
-		{
-			module: 'MMM-Planetarium',
-			position: 'fullscreen_below', 
-			classes: "hiddenFull",
-			hiddenOnStart: true,
-			config: {
-				latitude: "${LATITUDE}",
-				longitude: "${LONGITUDE}",
-				az: 0, 				// Azimuth : 0 means North, 90 means East, 180 means South, ...
-				panoffset: -0.01, 	// Panning step by AZ
-				paninterval: 10, 	// Milliseconds. 0 => no pan.
-
-				// https://slowe.github.io/VirtualSky/#options
-				projection: 'stereo',
-				keyboard: false,
-				constellations: true,
-				constellationlabels: false,
-				constellationwidth: 0.1,
-				showplanets: true,
-				showplanetlabels: false,
-				showstarlabels: false,
-				showdate: false,
-				showposition: false,
-				showgalaxy: false,
-				live: true,
-				meridian: false,
-				gridlines_gal: false,
-				showstarlabels: false,
-				ground: true,
-				transparent: true,
-				cardinalpoints: false,
-				mouse: false,
-				meteorshowers: false,
 			}
 		},
 
