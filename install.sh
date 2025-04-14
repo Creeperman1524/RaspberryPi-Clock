@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# Only install production dependencies to save on space and time
+export NODE_ENV=production
+
 # Install MagicMirror with the install script
 bash -c  "$(curl -sL https://raw.githubusercontent.com/sdetweil/MagicMirror_scripts/master/raspberry.sh)"
 pm2 stop MagicMirror
@@ -9,6 +12,7 @@ sed -i 's/config.js/config.js.template/' ~/MagicMirror/installers/pm2_MagicMirro
 pm2 start ~/MagicMirror/installers/pm2_MagicMirror_new.json
 pm2 save
 pm2 stop MagicMirror
+
 
 # Turn off screensaver
 echo "Disabling screensaver... (backup)"
@@ -38,26 +42,26 @@ git clone https://github.com/MMRIZE/MMM-CalendarExt3Timeline &> /dev/null
 echo "Installing Server Status..."
 git clone https://github.com/XBCreepinJesus/MMM-ServerStatus.git &> /dev/null
 cd MMM-ServerStatus/
-npm install
+npm i
 cd ~/MagicMirror/modules
 
 # System temperature
 echo "Installing system temperature..."
 git clone https://github.com/MichMich/mmm-systemtemperature.git &> /dev/null
-npm install
+npm i
 
 # Temperature monitor
 echo "Installing temperature monitor..."
 git clone https://github.com/grenagit/MMM-DHT-Sensor &> /dev/null
 cd MMM-DHT-Sensor
-npm install
+npm i
 cd ~/MagicMirror/modules
 
 # Scenes
 echo "Installing scenes..."
 git clone https://github.com/MMRIZE/MMM-Scenes2 &> /dev/null
 cd MMM-Scenes2
-npm install
+npm i
 cd ~/MagicMirror/modules
 
 # Create folder for my custom module
@@ -69,7 +73,7 @@ ln -s ~/RaspberryPi-Clock/MMM-TouchHandler.js ~/MagicMirror/modules/MMM-TouchHan
 echo "Installing notification scheduler..."
 git clone https://github.com/ianperrin/MMM-ModuleScheduler.git &> /dev/null
 cd MMM-ModuleScheduler
-npm install --production
+npm i
 cd ~/MagicMirror/modules
 
 echo "Make sure to edit the custom env file"

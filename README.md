@@ -29,6 +29,9 @@ Coming soon!
 
 Run `./install.sh` to install MagicMirror<sup>2</sup>, my modules, and configurations.
 
+> [!NOTE]
+> This does assume that the repository was cloned to `~/RaspberryPi-Clock`, if not the install script will fail to properly link the configuration files
+
 > [!WARNING]
 > This does take a while to run, especially to install all the packages. Be patient and make sure to not power off the Pi!
 
@@ -41,6 +44,8 @@ This script will:
 4. Install all the modules that I use and have created.
 5. Disable the pi's screensaver.
 6. Enable auto-start for when the Pi is restarted/shutdown.
+
+You can update MagicMirror<sup>2</sup> and all of the installed modules with `./update.sh`
 
 #### Commands
 
