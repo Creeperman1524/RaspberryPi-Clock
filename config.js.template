@@ -202,7 +202,10 @@ let config = {
 				fetchInterval: 10 * 60 * 1000, // how quickly to fetch new events and changes from the calendar
 				customEvents: [
 					{
-						keyword: '${CUST1KEY}', symbol: '${CUST1SYM}', color: '${CUST1COLOR}'
+						keyword: '${CUST1KEY}', symbol: '${CUST1SYM}', color: '#${CUST1COLOR}'
+					},
+					{
+						keyword: '${CUST2KEY}', symbol: '${CUST2SYM}', color: '#${CUST2COLOR}'
 					}
 				]
 			},
@@ -222,7 +225,12 @@ let config = {
 				displayLegend: false,
 				animationSpeed: 100,
 				calendarSet: ["${CAL1NAME}", "${CAL2NAME}", "${CAL3NAME}", "${CAL4NAME}"],
-				dateIndexOptions: {weekday: 'short'}
+				dateIndexOptions: {weekday: 'short'},
+				eventTransformer: (ev) => {
+					if (ev.title.search('${CUST1KEY}') > -1) ev.color = '#${CUST1COLOR}'
+					if (ev.title.search('${CUST2KEY}') > -1) ev.color = '#${CUST2COLOR}'
+					return ev
+				}
 			}
 		},
 
