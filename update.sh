@@ -23,5 +23,4 @@ for module in "${modules[@]}"; do
 	fi
 done
 
-echo "Restarting Magic Mirror..."
-pm2 restart MagicMirror
+echo "Make sure to restart your MagicMirror with 'pm2 restart MagicMirror'"
