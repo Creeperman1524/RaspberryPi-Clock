@@ -1,0 +1,13 @@
+{
+  "name": "raspberrypi-clock",
+  "version": "1.0.0",
+  "description": "A location to store and keep track of configuration files for my Raspberry Pi Clock project.",
+  "license": "ISC",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0"
+  }
+}
