@@ -48,7 +48,9 @@ cd ~/MagicMirror/modules
 # System temperature
 echo "Installing system temperature..."
 git clone https://github.com/MichMich/mmm-systemtemperature.git &> /dev/null
+cd mmm-systemtemperature/
 npm i
+cd ~/MagicMirror/modules
 
 # Temperature monitor
 echo "Installing temperature monitor..."
