@@ -66,10 +66,15 @@ cd MMM-Scenes2
 npm i
 cd ~/MagicMirror/modules
 
-# Create folder for my custom module
 echo "Installing custom touch handler..."
 mkdir MMM-TouchHandler
 ln -s ~/RaspberryPi-Clock/MMM-TouchHandler.js ~/MagicMirror/modules/MMM-TouchHandler/MMM-TouchHandler.js
+
+# Create folder for my custom game module
+echo "Installing custom game displayer..."
+mkdir MMM-Games
+ln -s ~/RaspberryPi-Clock/MMM-Games.js ~/MagicMirror/modules/MMM-Games/MMM-Games.js
+ln -s ~/RaspberryPi-Clock/Games/ ~/MagicMirror/modules/MMM-Games/Games
 
 # Notification Scheduler
 echo "Installing notification scheduler..."

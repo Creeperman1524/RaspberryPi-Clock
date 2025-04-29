@@ -108,6 +108,15 @@ let config = {
 			module: "MMM-TouchHandler",
 		},
 
+		// Custom background games
+		{
+			module: "MMM-Games",
+			position: "fullscreen_below",
+			config: {
+				desiredFrameRate: 30,
+			},
+		},
+
 		// Automatic scene notifications
 		// Displays the full information between 10:30am - 11:30am M-F
 		{
